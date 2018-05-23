@@ -147,8 +147,8 @@ public class Main {
                 //task3.3
                 String a33 = in.inputString();
                 if(a33.length()>0){
-                int ans2 = str.counInitials(a33);
-                out.printInt(ans2);}else{
+                String  ans2 = str.counInitials(a33);
+                System.out.println(ans2);}else{
                     System.out.println("Incorrect string ");
                 }
                 break;

@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.IntStream;
 
+import static java.lang.Math.pow;
+
 public class Sorts {
 
     protected int[] sortArr3(int[] mas) {
@@ -35,60 +37,27 @@ public class Sorts {
         return mymax;
     }
 
-    protected void shellSort(int[] a) {
+    protected void shellSort(int[] array) {
+        int inner, i;
+        int temp;
 
-        int st = 0;
-        int n = a.length;
+        int h = 1;
 
-        int size_b = n - st;
-        double[] b = new double[size_b];
-
-        for (int i = 0; i < size_b; i++){
-            b[i] = a[i + st];
+        while (h <= array.length / 3) {
+            h = h * 3 + 1; // (1, 4, 13, 40, 121, ...)
         }
 
-
-        ArrayList<Double> seq = new ArrayList<Double>();
-        int k = 0;
-        double i = 0;
-        int lvl = 0;
-
-        while (k == 0){
-            int p = 0;
-            int q = 0;
-            int powq = 1;
-            for (p = lvl; p >= 0; p--){
-                i = Math.pow(2, p) *powq;
-                powq *= 3;
-                if (i <= (n / 2)){ seq.add(i); }
-                else{
-                    k++;
-                    break;
+        while (h > 0) {
+            for (i = h; i < array.length; i++) {
+                temp = array[i];
+                inner = i;
+                while (inner > h - 1 && array[inner - h] >= temp) {
+                    array[inner] = array[inner - h];
+                    inner -= h;
                 }
+                array[inner] = temp;
             }
-            lvl++;
-        }
-        int m = seq.size();
-
-        Collections.reverse(seq);
-        //show(b, 0, size_b);
-
-        double x;
-        double gap;
-        int j;
-        for (k = 0; k < m; k++) { // seq
-            gap = seq.get(k);
-            for (double i2 = gap; i2 < size_b; ++i2) {
-                x = b[(int)i];
-                for ( j = (int)(i - gap); (x < b[j]) && (j >= 0); j = (int)(j - gap))
-                    b[(int)(j + gap)] = b[j];
-                b[(int)(j + gap)] = x;
-
-            }
-        }
-
-        for (int p = 0; p < size_b; p++){
-            a[p] = (int) b[p];
+            h = (h - 1) / 3;
         }
 
     }

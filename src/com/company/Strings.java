@@ -25,13 +25,13 @@ public class Strings {
         return ans;
     }
 
-    protected int counInitials(String a) {
-        int n = 0;
-        for (int i = 0; i < a.length(); i++) {
-            if (a.charAt(i) != ' ') {
-                n++;
-            }
-        }
+    protected String counInitials(String a) {
+        String n = "";
+        String[] mystr = a.split(" ");
+
+        n+= mystr[0].substring(0,1);
+        n+= mystr[1].substring(0,1);
+        n+= mystr[2].substring(0,1);
         return n;
     }
 
@@ -42,21 +42,21 @@ public class Strings {
         b = b.toLowerCase();
         String ans;
         int k = 0;
-        if (a.length() != b.length()) {
-            ans = "It`s not an anagram";
-        } else {
-            for (int i = 0; i < a.length(); i++) {
-                char a3 = a.charAt(i);
-                String a1 = Character.toString(a3);
+        if(a.length()!= b.length()){   ans = "It`s not an anagram";}
+        else {
+            while (!a.equals("")) {
+                String part = a.substring(0, 1);
+                a = a.substring(1, a.length());
 
-                if (b.contains(a1) == true) {
-                    k++;
+                if (b.contains(part) == true) {
+                    b = b.replaceFirst(part, "");
                 }
             }
-            if (k < a.length()) {
-                ans = "It`s not an anagram";
-            } else {
+
+            if (b.equals("")) {
                 ans = "It`s an anagram";
+            } else {
+                ans = "It`s not an anagram";
             }
         }
         return ans;
